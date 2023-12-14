@@ -107,7 +107,7 @@ This discord bot works through the use of Slash Commands. All you have to do is 
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/bryanreiter/DNDiscord?tab=MIT-1-ov-file)
+This project is licensed under the [MIT](https://github.com/bryanreiter/DNDiscord?tab=MIT-1-ov-file)
 
 ## Acknowledgments
 
