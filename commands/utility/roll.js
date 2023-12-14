@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { userMention } = require('discord.js')
 
 module.exports = {
   cooldown: 5,
@@ -62,11 +61,30 @@ module.exports = {
         }
       }
       console.log(rollResults);
-      interaction.editReply(
-        `Results of \`${input}\`: \`${rollResults
-          .map((roll) => `[${roll.join(', ')}]`)
-          .join(', ')}\` = \`${result}\``
-      );
+      const embed = new EmbedBuilder()
+        .setColor(330066)
+        .setTitle(`Dice Results`)
+        .setURL(`https://github.com/bryanreiter/DNDiscord`)
+        .setAuthor({ name: `DNData` })
+        .setDescription(`Results of your dice roll`)
+        .setThumbnail('https://i.imgur.com/yir0sLN.png')
+        .addFields(
+          { name: `Input`, value: `\`${input}\`` },
+          {
+            name: `Rolls`,
+            value: `\`${rollResults
+              .map((roll) => `[${roll.join(', ')}]`)
+              .join(', ')}\``,
+          },
+          { name: `Result`, value: `\`${result}\`` }
+        )
+        .setTimestamp()
+        .setFooter({
+          text: 'Powered by Discord.js',
+          iconURL:
+            'https://preview.redd.it/voqvc1bdstk61.png?auto=webp&s=c0d826236ebba5ed183776cc9c56119cbf4a8372',
+        });
+      interaction.followUp({ embeds: [embed] });
     } catch (err) {
       console.error('Error: Dice Rolling Failed', err);
       interaction.followUp(
