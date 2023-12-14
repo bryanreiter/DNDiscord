@@ -5,14 +5,14 @@ DNDiscord: Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elev
 ## Table of Contents
 
 - [DNDiscord](#dndiscord)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-    - [Getting Started](#getting-started)
-      - [Recommended / Required Development Utilities](#recommended--required-development-utilities)
-      - [Installing and Running](#installing-and-running)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Acknowledgments](#acknowledgments)
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Recommended / Required Development Utilities](#recommended--required-development-utilities)
+- [Installing and Running](#installing-and-running)
+- [Usage](#usage)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ## Installation
 
