@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="/assets/dndata_logo.png" alt="DNDiscord Logo" style="width: 200px;"/>
+</p>
+
 # DNDiscord
 
 Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your gaming experience by seamlessly rolling dice, exploring an arsenal of powerful weapons, discovering formidable beasts for your party to conquer, and much more—all conveniently within your Discord server!
@@ -85,15 +89,15 @@ Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your ga
 
    - Run the following command to deploy the slash commands, and ensure they are up to date.
 
-   ```bash
-    node deploy-commands.js
-   ```
+      ```bash
+       node deploy-commands.js
+      ```
 
    - Run the following command to start your bot.
 
-   ```bash
-    node index.js
-   ```
+      ```bash
+       node index.js
+      ```
 
    - Your bot should now be online!
 
