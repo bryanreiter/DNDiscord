@@ -4,7 +4,7 @@
 
 # DNDiscord
 
-Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your gaming experience by seamlessly rolling dice, exploring an arsenal of powerful weapons, discovering formidable beasts for your party to conquer, and much more—all conveniently within your Discord server!
+Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your gaming experience by seamlessly rolling dice, exploring an arsenal of powerful weapons, discovering formidable beasts for your party to conquer, and much more—all conveniently within your Discord server! Powered by [Discord JS](https://discord.js.org/) and [Open5E](https://api.open5e.com/).
 
 ## Table of Contents
 
