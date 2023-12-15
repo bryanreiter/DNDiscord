@@ -44,10 +44,9 @@ Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your ga
    cd DNDiscord
    ```
 
-3. **Create a new Node.js project and install dependencies**
+3. **Install dependencies**
 
    ```bash
-   npm init
    npm install
    ```
 
