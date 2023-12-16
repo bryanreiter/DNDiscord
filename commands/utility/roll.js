@@ -32,6 +32,7 @@ module.exports = {
           let individualRolls = [];
           if (roll.includes('d') || roll.includes('D')) {
             let [diceCount, diceSides] = roll.split(/d/i).map(Number);
+            diceCount = diceCount || 1;
             for (let i = 0; i < diceCount; i++) {
               let individualRoll = Math.floor(Math.random() * diceSides); //Random Roll
               rollResult += individualRoll;
