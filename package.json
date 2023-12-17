@@ -4,6 +4,7 @@
   "description": "A Discord bot that helps you find DND 5E items, classes, races, and more!",
   "main": "index.js",
   "scripts": {
+    "start": "node deploy-commands.js && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
