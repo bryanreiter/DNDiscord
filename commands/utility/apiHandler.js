@@ -17,11 +17,20 @@ async function fetchOpen5eMonster(monster) {
 }
 
 function getMonsterData(dnd5eData, open5eData) {
+  //Gets all the actions of the monster
   const actions = dnd5eData.actions || open5eData.actions || [];
   const actionFields = actions.map((action) => ({
     name: action.name || "N/A",
     value: action.desc || "No description available",
     damage_dice: action.damage_dice || "N/A",
+  }));
+
+  //Gets all the special abilities of the monster
+  const specialAbilities =
+    dnd5eData.special_abilities || open5eData.special_abilities || [];
+  const specialAbilitiesFields = specialAbilities.map((special) => ({
+    name: special.name || "N/A",
+    value: special.desc || "No description available",
   }));
   return {
     name: dnd5eData.name || open5eData.name || "N/A",
@@ -40,6 +49,7 @@ function getMonsterData(dnd5eData, open5eData) {
     charis: dnd5eData.charisma || open5eData.charisma || "N/A",
     cr: dnd5eData.challenge_rating || open5eData.challenge_rating || "N/A",
     actions: actionFields,
+    specials: specialAbilitiesFields,
   };
 }
 

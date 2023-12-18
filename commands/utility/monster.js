@@ -38,6 +38,10 @@ module.exports = {
         .setDescription(monsterData.description)
         .addFields(
           {
+            name: "=-=-=-=Information=-=-=-=",
+            value: `** **`,
+          },
+          {
             name: "Size",
             value: monsterData.size,
             inline: true,
@@ -68,6 +72,10 @@ module.exports = {
             inline: true,
           },
           //{ name: "\u200B", value: "\u200B" },
+          {
+            name: "=-=-=-=Stats=-=-=-=",
+            value: `** **`,
+          },
           {
             name: "STR",
             value: `${monsterData.str}`,
@@ -106,6 +114,17 @@ module.exports = {
           iconURL:
             "https://preview.redd.it/voqvc1bdstk61.png?auto=webp&s=c0d826236ebba5ed183776cc9c56119cbf4a8372",
         });
+      embed.addFields({
+        name: "=-=-=-=Special Abilities=-=-=-=",
+        value: "** **",
+      });
+      for (const special of monsterData.specials) {
+        embed.addFields({
+          name: special.name,
+          value: special.value,
+        });
+      }
+      embed.addFields({ name: "=-=-=-=Actions=-=-=-=", value: "** **" });
       for (const action of monsterData.actions) {
         embed.addFields({
           name: action.name,
