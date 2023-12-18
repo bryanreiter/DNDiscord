@@ -9,14 +9,15 @@ Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your ga
 ## Table of Contents
 
 - [DNDiscord](#dndiscord)
-- [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-- [Getting Started](#getting-started)
-- [Recommended / Required Development Utilities](#recommended--required-development-utilities)
-- [Installing and Running](#installing-and-running)
-- [Usage](#usage)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Getting Started](#getting-started)
+      - [Recommended / Required Development Utilities](#recommended--required-development-utilities)
+      - [Installing and Running](#installing-and-running)
+  - [Usage](#usage)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
+  - [Acknowledgments](#acknowledgments)
 
 ## Installation
 
@@ -103,6 +104,10 @@ Your Comprehensive Dungeons and Dragons 5E Companion in Discord! Elevate your ga
 ## Usage
 
 This discord bot works through the use of Slash Commands. All you have to do is type `/` and you're ready to use your DNDiscord. You can easily see all the commands a bot has, as well as any validation and error handling that will help you get the command right the first time.
+
+## Disclaimer
+
+The code provided in this repository is intended for private, non-commercial use only. It is designed to be used with legally obtained digital materials. Users are responsible for ensuring they comply with all relevant copyright laws and licensing agreements, including those of Wizards of the Coast. This bot may utilize PDF scanning of copyrighted material. Use of this code to scan, distribute, or publicly display copyrighted material without permission from the copyright holder may be illegal. The author of this code is not responsible for any unlawful use.
 
 ## License
 
