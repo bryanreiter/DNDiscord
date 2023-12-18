@@ -21,7 +21,7 @@ function getMonsterData(dnd5eData, open5eData) {
   const actions = dnd5eData.actions || open5eData.actions || [];
   const actionFields = actions.map((action) => ({
     name: action.name || "N/A",
-    value: action.desc || "No description available",
+    value: action.desc || "** **",
     damage_dice: action.damage_dice || "N/A",
   }));
 
@@ -38,7 +38,7 @@ function getMonsterData(dnd5eData, open5eData) {
       (dnd5eData.name ? dnd5eData.name : undefined) ||
       (open5eData.name ? open5eData.name : undefined) ||
       "N/A",
-    description: dnd5eData.desc || open5eData.desc || "No Description",
+    description: dnd5eData.desc || open5eData.desc || "** **",
     size:
       (dnd5eData.size ? dnd5eData.size : undefined) ||
       (open5eData.size ? open5eData.size : undefined) ||
