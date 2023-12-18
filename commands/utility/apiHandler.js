@@ -17,6 +17,12 @@ async function fetchOpen5eMonster(monster) {
 }
 
 function getMonsterData(dnd5eData, open5eData) {
+  const actions = dnd5eData.actions || open5eData.actions || [];
+  const actionFields = actions.map((action) => ({
+    name: action.name || "N/A",
+    value: action.desc || "No description available",
+    damage_dice: action.damage_dice || "N/A",
+  }));
   return {
     name: dnd5eData.name || open5eData.name || "N/A",
     description: dnd5eData.desc || open5eData.desc || "No Description",
@@ -33,7 +39,8 @@ function getMonsterData(dnd5eData, open5eData) {
     wisdom: dnd5eData.wisdom || open5eData.wisdom || "N/A",
     charis: dnd5eData.charisma || open5eData.charisma || "N/A",
     cr: dnd5eData.challenge_rating || open5eData.challenge_rating || "N/A",
+    actions: actionFields,
   };
 }
 
-module.exports = { fetchDnd5eData, fetchOpen5eData, getMonsterData };
+module.exports = { fetchDnd5eMonster, fetchOpen5eMonster, getMonsterData };

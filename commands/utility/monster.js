@@ -30,7 +30,7 @@ module.exports = {
 
       //Build the embed
       const embed = new EmbedBuilder()
-        .setColor(330066)
+        .setColor("Blurple")
         .setTitle(monsterData.name)
         .setURL(`https://roll20.net/compendium/dnd5e/${roll20URL}`)
         .setAuthor({ name: `DNData` })
@@ -48,8 +48,8 @@ module.exports = {
             inline: true,
           },
           {
-            name: "Alignment",
-            value: monsterData.alignment,
+            name: "CR",
+            value: `${monsterData.cr}`,
             inline: true,
           },
           {
@@ -66,10 +66,6 @@ module.exports = {
             name: "Hit Dice",
             value: `${monsterData.hit_dice}`,
             inline: true,
-          },
-          {
-            name: "CR",
-            value: `${monsterData.cr}`,
           },
           //{ name: "\u200B", value: "\u200B" },
           {
@@ -101,8 +97,7 @@ module.exports = {
             name: "CHA",
             value: `${monsterData.charis}`,
             inline: true,
-          },
-          
+          }
         )
         .setImage(`https://www.dnd5eapi.co${dnd5eData.image}`)
         .setTimestamp()
@@ -111,6 +106,12 @@ module.exports = {
           iconURL:
             "https://preview.redd.it/voqvc1bdstk61.png?auto=webp&s=c0d826236ebba5ed183776cc9c56119cbf4a8372",
         });
+      for (const action of monsterData.actions) {
+        embed.addFields({
+          name: action.name,
+          value: `${action.value}\nDamage Dice: ${action.damage_dice}`,
+        });
+      }
       interaction.followUp({ embeds: [embed] });
     } catch (error) {
       console.error("Error fetching monster data:", error);
