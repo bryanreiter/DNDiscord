@@ -1,4 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+  fetchDnd5eMonster,
+  fetchOpen5eMonster,
+  getMonsterData,
+} = require("./apiHandler");
 
 module.exports = {
   cooldown: 5,
@@ -12,64 +17,92 @@ module.exports = {
     await interaction.deferReply();
     try {
       let monster = interaction.options.getString("monster");
-      monster = monster.toLowerCase();
+      //Removes any spaces and replaces with '_' for roll20 URL
+      let roll20URL = monster.replace(/\s+/g, "_").toLowerCase();
+      // Removes any spaces and replaces with '-' for APIs.
+      monster = monster.replace(/\s+/g, "-").toLowerCase();
 
-      //build first request to get details
-      const response1 = await fetch(
-        `https://www.dnd5eapi.co/api/monsters/${monster}`
-      );
-      const dnd5eData = await response1.json();
+      const dnd5eData = await fetchDnd5eMonster(monster);
+      const open5eData = await fetchOpen5eMonster(monster);
 
-      //new request to get description and other details not in dnd5eapi (if given)
-      const response2 = await fetch(
-        `https://api.open5e.com/v1/monsters/?name=${monster}`
-      );
-      const open5eData = await response2.json();
+      //Set Monster Data
+      const monsterData = getMonsterData(dnd5eData, open5eData);
 
-      const desc = dnd5eData.desc
-        ? dnd5eData.desc
-        : open5eData.desc
-          ? open5eData.desc
-          : "";
       //Build the embed
       const embed = new EmbedBuilder()
         .setColor(330066)
-        .setTitle(dnd5eData.name)
-        .setURL(`https://github.com/bryanreiter/DNDiscord`)
+        .setTitle(monsterData.name)
+        .setURL(`https://roll20.net/compendium/dnd5e/${roll20URL}`)
         .setAuthor({ name: `DNData` })
-        .setDescription(
-          dnd5eData.desc
-            ? dnd5eData.desc
-            : open5eData.desc
-              ? open5eData.desc
-              : ""
-        )
         .setThumbnail("https://i.imgur.com/yir0sLN.png")
+        .setDescription(monsterData.description)
         .addFields(
           {
             name: "Size",
-            value: dnd5eData.size ? dnd5eData.size : open5eData.size,
+            value: monsterData.size,
             inline: true,
           },
           {
             name: "Type",
-            value: dnd5eData.type ? dnd5eData.type : open5eData.type,
+            value: monsterData.type,
             inline: true,
           },
           {
             name: "Alignment",
-            value: dnd5eData.alignment
-              ? dnd5eData.alignment
-              : open5eData.alignment,
+            value: monsterData.alignment,
             inline: true,
           },
           {
             name: "Armor Class",
-            value: dnd5eData.armor_class.value
-              ? dnd5eData.armor_class.value
-              : open5eData.armor_class,
+            value: `${monsterData.ac}`,
             inline: true,
-          }
+          },
+          {
+            name: "Hit Points",
+            value: `${monsterData.hit_points}`,
+            inline: true,
+          },
+          {
+            name: "Hit Dice",
+            value: `${monsterData.hit_dice}`,
+            inline: true,
+          },
+          {
+            name: "CR",
+            value: `${monsterData.cr}`,
+          },
+          //{ name: "\u200B", value: "\u200B" },
+          {
+            name: "STR",
+            value: `${monsterData.str}`,
+            inline: true,
+          },
+          {
+            name: "DEX",
+            value: `${monsterData.dex}`,
+            inline: true,
+          },
+          {
+            name: "CON",
+            value: `${monsterData.cons}`,
+            inline: true,
+          },
+          {
+            name: "INT",
+            value: `${monsterData.intell}`,
+            inline: true,
+          },
+          {
+            name: "WIS",
+            value: `${monsterData.wisdom}`,
+            inline: true,
+          },
+          {
+            name: "CHA",
+            value: `${monsterData.charis}`,
+            inline: true,
+          },
+          
         )
         .setImage(`https://www.dnd5eapi.co${dnd5eData.image}`)
         .setTimestamp()
