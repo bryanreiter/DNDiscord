@@ -1,63 +1,102 @@
-const { SlashCommandBuilder } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
-const apiUrl = 'https://api.open5e.com/v1/classes/';
+const {
+  SlashCommandBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder,
+} = require("discord.js");
 module.exports = {
-    cooldown: 5,
-    data: new SlashCommandBuilder()
-    .setName('class')
-    .setDescription('Replies with the description of the class')
-    .addStringOption(option => 
-        option.setName(`classes`)
-            .setDescription(`The Class Options`)
-            .setRequired(true)
-            .addChoices(
-                {name: 'Barbarian', value: 'Barbarian'},
-                {name: 'Bard', value: 'Bard'},
-                {name: 'Cleric', value: 'Cleric'},
-                {name: 'Druid', value: 'Druid'},
-                {name: 'Fighter', value: 'Fighter'},
-                {name: 'Monk', value: 'Monk'},
-                {name: 'Paladin', value: 'Paladin'},
-                {name: 'Ranger', value: 'Ranger'},
-                {name: 'Rogue', value: 'Rogue'},
-                {name: 'Sorcerer', value: 'Sorcerer'},
-                {name: 'Warlock', value: 'Warlock'},
-                {name: 'Wizard', value: 'Wizard'},
-            )),
-    async execute(interaction){
-        await interaction.deferReply();
-        const className = interaction.options.getString('classes');
-        await wait(4000);
-        getClassDescription(className)
-            .then(description => {
-                console.log('Class Description: ', description)
-                interaction.editReply(interaction.editReply(`Class Description: \n${description}`));
-            })
-            .catch(error => {
-                console.error('Error:', error)
-                interaction.editReply('Error fetching class description.');
-            });
-    }
+  cooldown: 5,
+  data: new SlashCommandBuilder()
+    .setName("class")
+    .setDescription("Provides Description of Classes"),
 
-};
+  async execute(interaction) {
+    await interaction.deferReply();
 
-function getClassDescription(className) {
-    return new Promise((resolve, reject) => {
-      fetch(apiUrl)
-        .then(response => {
-            response.json()
-            console.log('Raw API Response:', response);
-        })
-        .then(data => {
-          const targetClass = data.results.find(classData => classData.name === className);
-  
-          if (targetClass) {
-            const description = targetClass.desc;
-            resolve(description);
-          } else {
-            reject(new Error('Class not found.'));
-          }
-        })
-        .catch(error => reject(error));
+    const barbarian = new ButtonBuilder()
+      .setCustomId("barbarian")
+      .setLabel("Barbarian")
+      .setStyle(ButtonStyle.Primary);
+
+    const bard = new ButtonBuilder()
+      .setCustomId("bard")
+      .setLabel("Bard")
+      .setStyle(ButtonStyle.Primary);
+
+    const cleric = new ButtonBuilder()
+      .setCustomId("cleric")
+      .setLabel("Cleric")
+      .setStyle(ButtonStyle.Primary);
+
+    const druid = new ButtonBuilder()
+      .setCustomId("druid")
+      .setLabel("Druid")
+      .setStyle(ButtonStyle.Primary);
+
+    const fighter = new ButtonBuilder()
+      .setCustomId("fighter")
+      .setLabel("Fighter")
+      .setStyle(ButtonStyle.Primary);
+
+    const monk = new ButtonBuilder()
+      .setCustomId("monk")
+      .setLabel("Monk")
+      .setStyle(ButtonStyle.Primary);
+
+    const paladin = new ButtonBuilder()
+      .setCustomId("paladin")
+      .setLabel("Paladin")
+      .setStyle(ButtonStyle.Primary);
+
+    const ranger = new ButtonBuilder()
+      .setCustomId("ranger")
+      .setLabel("Ranger")
+      .setStyle(ButtonStyle.Primary);
+
+    const rogue = new ButtonBuilder()
+      .setCustomId("rogue")
+      .setLabel("Rogue")
+      .setStyle(ButtonStyle.Primary);
+
+    const sorcerer = new ButtonBuilder()
+      .setCustomId("sorcerer")
+      .setLabel("Sorcerer")
+      .setStyle(ButtonStyle.Primary);
+
+    const warlock = new ButtonBuilder()
+      .setCustomId("warlock")
+      .setLabel("Warlock")
+      .setStyle(ButtonStyle.Primary);
+
+    const wizard = new ButtonBuilder()
+      .setCustomId("wizard")
+      .setLabel("Wizard")
+      .setStyle(ButtonStyle.Primary);
+
+    const row1 = new ActionRowBuilder().addComponents(
+      barbarian,
+      bard,
+      cleric,
+      druid
+    );
+
+    const row2 = new ActionRowBuilder().addComponents(
+      fighter,
+      monk,
+      paladin,
+      ranger
+    );
+
+    const row3 = new ActionRowBuilder().addComponents(
+      rogue,
+      sorcerer,
+      warlock,
+      wizard
+    );
+
+    await interaction.followUp({
+      content: `What class would you like to check out?`,
+      components: [row1, row2, row3],
     });
-  }
+  },
+};
