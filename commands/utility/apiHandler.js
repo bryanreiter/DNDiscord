@@ -1,3 +1,12 @@
+async function fetchClasses(className) {
+  const response = await fetch(
+    `https://api.open5e.com/v1/classes/${className}`
+  );
+  const data = await response.json();
+  console.log(data);
+  return data;
+}
+
 async function fetchDnd5eMonster(monster) {
   const response = await fetch(
     `https://www.dnd5eapi.co/api/monsters/${monster}`
@@ -96,4 +105,9 @@ function getMonsterData(dnd5eData, open5eData) {
   };
 }
 
-module.exports = { fetchDnd5eMonster, fetchOpen5eMonster, getMonsterData };
+module.exports = {
+  fetchDnd5eMonster,
+  fetchOpen5eMonster,
+  getMonsterData,
+  fetchClasses,
+};

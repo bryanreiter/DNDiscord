@@ -3,7 +3,11 @@ const {
   ButtonBuilder,
   ButtonStyle,
   ActionRowBuilder,
+  EmbedBuilder,
 } = require("discord.js");
+
+const { fetchClasses } = require("apiHandler.js");
+
 module.exports = {
   cooldown: 5,
   data: new SlashCommandBuilder()
@@ -94,9 +98,14 @@ module.exports = {
       wizard
     );
 
-    await interaction.followUp({
+    const reply = await interaction.followUp({
       content: `What class would you like to check out?`,
       components: [row1, row2, row3],
     });
+
+    if (reply != null) {
+      console.log(reply.customId);
+      const data = fetchClasses(reply.customId);
+    }
   },
 };
