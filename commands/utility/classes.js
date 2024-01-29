@@ -6,12 +6,12 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
-const { fetchClasses } = require("apiHandler.js");
+const { fetchClasses } = require("./apiHandler");
 
 module.exports = {
   cooldown: 5,
   data: new SlashCommandBuilder()
-    .setName("class")
+    .setName("classes")
     .setDescription("Provides Description of Classes"),
 
   async execute(interaction) {
@@ -77,21 +77,21 @@ module.exports = {
       .setLabel("Wizard")
       .setStyle(ButtonStyle.Primary);
 
-    const row1 = new ActionRowBuilder().addComponents(
+    const classRow1 = new ActionRowBuilder().addComponents(
       barbarian,
       bard,
       cleric,
       druid
     );
 
-    const row2 = new ActionRowBuilder().addComponents(
+    const classRow2 = new ActionRowBuilder().addComponents(
       fighter,
       monk,
       paladin,
       ranger
     );
 
-    const row3 = new ActionRowBuilder().addComponents(
+    const classRow3 = new ActionRowBuilder().addComponents(
       rogue,
       sorcerer,
       warlock,
@@ -100,12 +100,36 @@ module.exports = {
 
     const reply = await interaction.followUp({
       content: `What class would you like to check out?`,
-      components: [row1, row2, row3],
+      components: [classRow1, classRow2, classRow3],
     });
 
-    if (reply != null) {
-      console.log(reply.customId);
-      const data = fetchClasses(reply.customId);
+    const collectorFilter = (i) => i.user.id === interaction.user.id;
+    try {
+      const choice = await reply.awaitMessageComponent({
+        filter: collectorFilter,
+        time: 60_000,
+      });
+      if (choice.customId === "barbarian") {
+        console.log(choice.customId);
+        const data = await fetchClasses(choice.customId);
+
+        const classesEmbed = new EmbedBuilder()
+          .setColor("Blurple")
+          .setTitle(data.name);
+
+        await choice.update({
+          embeds: [classesEmbed],
+          components: [],
+        });
+      }
+    } catch (e) {
+      await interaction.editReply({
+        content:
+          "Choice not received within 1 minute, cancelling. Please run the command again.",
+        components: [],
+      });
     }
+    // Embed featuring class details with interaction buttons for subclasses they can view as well as a back button
+    // Embed for selected subclass as well as a back button
   },
 };

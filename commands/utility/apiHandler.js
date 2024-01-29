@@ -3,7 +3,8 @@ async function fetchClasses(className) {
     `https://api.open5e.com/v1/classes/${className}`
   );
   const data = await response.json();
-  console.log(data);
+  console.log(data.name);
+  console.log(data.desc);
   return data;
 }
 
